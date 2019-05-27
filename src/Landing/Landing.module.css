@@ -1,0 +1,45 @@
+.container{
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(
+        to right bottom,
+        rgba(0,0,0, .3),
+        rgba(0,0,0, .3)),
+        url("../Media/landingback.jpg");
+    background-size: cover;
+    background-repeat: none;
+    background-position: center;
+    overflow: hidden;
+  
+}
+.container2{
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.header{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+    background-color: rgba(0,0,0, .3);
+    width: 60%;
+    padding: 2rem;
+}
+.title{
+    font-size: 4rem;
+    font-weight: 200;
+    letter-spacing: 2px;
+    margin-bottom: .5rem;
+}
+.title2{
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 2rem;
+}

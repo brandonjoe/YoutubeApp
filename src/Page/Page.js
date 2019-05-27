@@ -8,6 +8,7 @@ class Page extends Component {
         console.log(pathArray[1])
         return (
             <div className={classes.main}>
+                
                 <Results videoID={pathArray[1]} search={pathArray[2]}/> 
             </div>
         );

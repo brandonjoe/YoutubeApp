@@ -16,8 +16,11 @@ class Results extends Component {
   }
 
   componentWillMount() {
+    function testString(testData, lookup){
+      return testData.toLowerCase().indexOf(lookup) === -1;
+    }
     const getComments = fetch(
-      `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${
+      `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet,replies&videoId=${
         this.props.videoID
       }&order=time&searchTerms=${
         this.props.search
@@ -29,12 +32,30 @@ class Results extends Component {
       });
     let list = [];
    getComments.then(val => {
+     console.log(val)
       val.items.forEach(snippet => {
-        list.push(snippet.snippet.topLevelComment.snippet);
+        console.log(snippet)
+        if(snippet.snippet.topLevelComment.snippet.textOriginal.toLowerCase().includes(this.props.search) ){
+          list.push(snippet.snippet.topLevelComment.snippet);
+        } else {
+          if(snippet.replies) {
+            snippet.replies.comments.forEach(val => {
+              if(val.snippet.textOriginal.toLowerCase().includes(this.props.search)){
+                list.push(val.snippet)
+              } 
+            })
+          }
+          
+
+        }
+        
       });
-      list.forEach(item=> {
-        item.publishedAt = item.publishedAt.substring(0,10)
-      })
+      if(list.length > 0){
+        list.forEach(item=> {
+          item.publishedAt = item.publishedAt.substring(0,10)
+        })
+      }
+      
       console.log(list)
       this.setState({
         comments: list,
@@ -60,7 +81,7 @@ class Results extends Component {
               .then(res => res.json())
               .then(data => {
                 data.items.forEach(val => {
-                
+
                   list.push(val.snippet.topLevelComment.snippet); //push each item to our list
                 });
                 
